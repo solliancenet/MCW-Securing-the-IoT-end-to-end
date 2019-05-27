@@ -7,10 +7,14 @@ Contoso plans to tie in to existing sensors at the well head that monitor key sy
 
 In addition, they would also like to the solution to yield benefits to their workers in the field. “The field technicians and lease operators already have tools on their phones that they use every day to see what a well is doing,” explains Miles Strom. “Our goal is to connect these tools to live data from the IoT sensors. So, instead of seeing low-resolution volumes or flow rates, they’ll see what is happening in real time. This way they can respond immediately to problems that lead to downtime or maintenance issues.”
 
+They have implemented proof of concept solution for this collecting and analyzing device telemetry using IoT Hub, but are interested in learning about any related services in Azure that would help them to secure such solutions. 
+
 ## Target audience
--	IoT Developers
--	Network Security Administrators
--	Network Engineers
+-	Cloud Solution Architect
+-   System Architect
+-   Software Engineer
+-   Technical Support Engineer
+-   Data Engineer
 
 ## Abstract
 
@@ -22,39 +26,47 @@ At the end of this workshop, you will be better able to architect a comprehensiv
 ![Envisioned situation](Media/envisioned-situation.png)
 
 ### Whiteboard design session
-In this whiteboard design session, you will look at the process for designing a oil and gas manufacturing IoT solution that is secured end-to-end following best practices. You will learn how to apply appropriate role-based access control permission to objects in this solution such as devices, sensors, cloud services and people. You will consider how to secure the network connecting all the devices, and how to monitor them using a SIEM. You will also work through zone assignments so that you have a clear picture of device security, gateway security, cloud services security. You will also provide Contoso guidance on defining lifecycles for particular components so that they have a plan that begins with initial deployment, to expected maintenance, to planned obsolesence and ultimately thru decommissioning of the device so that they can understand how Azure supports this. Additionally, you will perform some threat modeling to help WWI think about how they might handle: denial of service attacks, tampering, elevation of privelege, intrusion, information disclosure, man in the middle and protocol attacks against devices.  
+In this whiteboard design session, you will look at the process for designing a oil and gas manufacturing IoT solution that is secured end-to-end following best practices. You will learn how how to monitor and manage the security of all components in the solution You will also provide Contoso guidance on defining lifecycles for particular components so that they have a plan that begins with initial deployment, to expected maintenance, to planned obsolesence and ultimately thru decommissioning of the device so that they can understand how Azure supports this. Additionally, you will perform some threat modeling to help Contoso think about how they might handle STRIDE threats (spoofing of user identity, tampering, repudiation, inrformation disclosure, denial of service, elevation of privelege).  
 
 At the end of this whiteboard design session, you will be better able to architect a comprehensive and secure oil and gas manufacturing IoT solution.
 
 #### Outline: Key Concerns for Cutomer situation ####
-- What SIEM tools can we use with an IoT solution?
 - How can we provide a secure identity to each of our devices?
-- How can we proactively guard against attacks to components in our solution, from device, to network to cloud?
+- How can we proactively guard against attacks to components in our solution, from device, to network to cloud? 
+- What is the alerting capbility provided? Do we have to author dozens of rules to get started? How would we keep the rules set up to date? Are we limited to rules as the only way alerts are created?
+- Are the alerts limited to events occuring just on the device or can we have a single solution that can raise alerts based on events transpiring on devices, on our IoT Edge devices, and the IoT Hub to which they transmit?
+- Is there a way for us to send custom security related events from the device? Can this be done without an agent installed on the device?
+- How can we manually query for security alerts collected by the solution?
 - How do we manage the lifecycle of the solution, encompassing the both the applications running on or near the device and in the cloud?
-  
+- We run a mix of devices, mostly Linux but some run on x86 and others run on x64 architectures. When using Azure Security Center for IoT, how whould we choose the agent flavor to use? We currently do not have Windows Server or Windows IoT Core devices, but as we are exploring new devices all the time, we are curious- do the Windows agents and Linux agents have feature parity?
+- How do we configure IoT Hub to enable the additional security capabilities?
+- How are security agents installed on the devices? Do we have to install the agents one by one or are there ways for us to deploy at scale? Can we turn the device agent off, such as when we need to perform maintenance on the device?
+- How do we configure a security module on our IoT Edge device?
+- How does my solution architecture change if I use multiple different IoT Hubs instead of one central IoT Hub?
+- For the security solution you recommend, are there communication protocols are we required to use for the devices and for IoT Edge devices?
+- We understand now that Azure Security Center for IoT provides the capabilities to secure solutions around a single IoT Hub. If we want to roll this security info up to a higher, enterprise wide view across other IoT Hub solutions, or to include non-IoT solutions in a unified security information and event management solution or leverage security orchestration and automated response at this higher level, what other Azure service should we consider and how at a high level would we configure it to consume the events from ASC for IoT?
+
+
+
 ### Hands-on lab 
-In this hands-on lab, you will look at the process for implementing a oil and gas manufacturing IoT solution that is secured end-to-end following best practices. You will learn how to apply appropriate role-based access control permission to objects in this solution such as devices, sensors, cloud services and people. You will consider how to secure the network connecting all the devices, and how to monitor them using a SIEM. You will also work through zone assignments so that you have a clear picture of device security, gateway security, cloud services security. You will also provide Contoso guidance on defining lifecycles for particular components so that they have a plan that begins with initial deployment, to expected maintenance, to planned obsolesence and ultimately thru decommissioning of the device so that they can understand how Azure supports this. Additionally, you will perform some threat modeling to help WWI think about how they might handle: denial of service attacks, tampering, elevation of privelege, intrusion, information disclosure, man in the middle and protocol attacks against devices.   
-At the end of this hands-on lab, you will be better able to implment a comprehensive and secure oil and gas manufacturing IoT solution.
+In this hands-on lab, you will look at the process for implementing a oil and gas manufacturing IoT solution that is secured end-to-end following best practices. You will learn how how to monitor and manage the security of all components in the solution. 
 
 #### Outline: Hands-on lab exercises
 - Exercise 0: Before the hands-on lab
-- Exercise 1: Creating the Digital Twins taxonomy
-- Exercise 2: Querying the taxonomy and telemetry data
-- Exercise 3: Applying Role Based Access Control
-- Exercise 4: Monitoring solution security
-- Exercise 5: Simulating an attack and threat mitigation
-- Exercise 6: Managing the device lifecycle
+- Exercise 1: Secure IoT Hub 
+- Exercise 2: Secure Device  
+- Exercise 3: Secure IoT Edge
+- Exercise 4: Send custom security events
+- Exercise 5: Query and monitor events, alerts and recommendations
+- Exercise 6: Simulate an attack and perform threat mitigation
 
 ## Azure services and related products
--	Azure Security Center
+-	Azure Security Center (including ASC for IoT)
 -	Azure Sentinel
--	Azure IoT Edge (including secure enclaves)
+-	Azure IoT Edge
 -	Azure IoT Hub
--	Azure Active Directory
-
-
 
 ## Related references
-*This should be a list of and links to prereqs, architectural diagrams, supporting docs, or briefing decks related to the material.* 
 - [MCW](https://github.com/Microsoft/MCW)
 - https://docs.microsoft.com/en-us/azure/asc-for-iot/overview
+- https://docs.microsoft.com/en-us/azure/iot-fundamentals/iot-security-architecture 
