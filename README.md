@@ -62,7 +62,8 @@ In this hands-on lab, you will look at the process for implementing a oil and ga
 
 ## Azure services and related products
 -	Azure Security Center (including ASC for IoT)
--	Azure Sentinel
+-   Log Analytics
+-   Azure IoT Provisioning Service
 -	Azure IoT Edge
 -	Azure IoT Hub
 
