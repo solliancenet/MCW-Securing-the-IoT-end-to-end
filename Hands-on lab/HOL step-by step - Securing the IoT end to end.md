@@ -177,12 +177,16 @@ sudo apt-get install auditd audispd-plugins
 git clone https://github.com/Azure/iotedge --recursive
 
 git clone -b 2019-05-16 https://github.com/Azure/azure-iot-sdk-c.git --recursive
+
 cd azure-iot-sdk-c
+
 git submodule update --init
 
 #cmake -Duse_prov_client:BOOL=ON .
 cmake -Duse_prov_client:BOOL=ON -Duse_tpm_simulator:BOOL=ON .
+
 cd provisioning_client/tools/tpm_device_provision
+
 make
 ```
 
@@ -206,6 +210,7 @@ sudo ./tpm_device_provision
 cd
 
 sudo wget -c https://cfhcable.dl.sourceforge.net/project/ibmswtpm2/ibmtpm1332.tar.gz
+
 sudo tar -zxvf ibmtpm1332.tar.gz 
 
 cd src
@@ -250,8 +255,9 @@ cd
 cd azure-iot-sdk-c/provisioning_client/tools/tpm_device_provision
 sudo ./tpm_device_provision
 ```
-
 2.  Copy the device **Registration Id** and the **Endorsement Key**
+
+> NOTE: In the real world all your devices should have hardware based TPMs.
 
 3.  Switch to the Azure Portal and navigate to the Device Provisioning Service **oilwells-prov-[YOUR INIT]**
 
@@ -319,7 +325,7 @@ sudo nano /etc/iotedge/config.yaml
 
 ![A running software TPM.](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex2_image008.png "A running software TPM")
 
-11.  Give permissions to the TPM to the iotedge service by running the following:
+11.  Although we are using a software TPM, you would need to give permissions to the hardware TPM to the iotedge service by running the following commands:
 
 ```PowerShell
 tpm=$(sudo find /sys -name dev -print | fgrep tpm | sed 's/.\{4\}$//')
@@ -368,7 +374,7 @@ sudo journalctl -u iotedge
 sudo docker ps
 ```
 
-## Exercise 4: Install Azure Securit IoT Agent
+## Exercise 4: Install Azure Security IoT Agent
 
 Duration: X minutes
 
@@ -408,8 +414,6 @@ sudo nano /var/certs/key
 3.  Run the following command to start the security agent:
 
 ```PowerShell
-sudo chown asciotagent: ASCIoTAgent
-
 sudo systemctl start ASCIoTAgent
 sudo systemctl status ASCIoTAgent
 ```
@@ -418,7 +422,7 @@ sudo systemctl status ASCIoTAgent
 
 1.  Switch to the Azure Portal
 
-2.  Open the IoT Hub
+2.  Open the **oilwells-iothub-[YOUR INIT]** IoT Hub
 
 3.  Click **IoT Edge**
 
