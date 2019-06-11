@@ -511,7 +511,7 @@ Describe how you will use Azure features to ensure the following:
 
 7.  Is it possible to assign role-based permissions based on their security objectives and policies to the IoT resources such as the Hub, Edge and individual devices? 
 
--   Yes, Azure IoT resources come with a management plane that gives you flexiblity to allow various levels of permissions to target specific roles of your IoT Infrastructure.
+-   Yes, Azure IoT resources come with a management plane that gives you flexibility to allow various levels of permissions to target specific roles of your IoT Infrastructure.
 
 8.  Is the solution capable of being flexible in the types of reporting and alerts that can be generated based on custom logging event data?
 
@@ -523,6 +523,6 @@ Describe how you will use Azure features to ensure the following:
 
 ## Customer quote (to be read back to the attendees at the end)
 
-"Managing our massive worldwide IoT Infrastructure using the latest security features of Azure has given us the confidence to know our devices are running securly and efficiently with the added flexiblity to change our direction at any time." 
+"Managing our massive worldwide IoT Infrastructure using the latest security features of Azure has given us the confidence to know our devices are running securly and efficiently with the added flexibility to change our direction at any time." 
 
 Jack Tradewinds, CIO of Contoso, Ltd.
