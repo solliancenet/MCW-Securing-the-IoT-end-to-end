@@ -164,7 +164,7 @@ sudo apt-get upgrade
 
 sudo apt-get install -y git cmake build-essential curl libcurl4-openssl-dev libssl-dev uuid-dev
 
-sudo apt-get install libcurl3 libcurl-openssl1.0-dev
+sudo apt-get install libcurl4-openssl-dev
 sudo apt-get install auditd audispd-plugins
 
 ```
