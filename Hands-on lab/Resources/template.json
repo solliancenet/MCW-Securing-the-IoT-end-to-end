@@ -307,7 +307,25 @@
             "properties": {
                 "provisioningState": "Succeeded",
                 "resourceGuid": "1573ade0-fb1a-4c2f-b7ce-3973c416a66a",
-                "securityRules": [],
+                "securityRules": [
+                    {
+                        "name": "Port_22",                        
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ],
                 "defaultSecurityRules": [
                     {
                         "name": "AllowVnetInBound",
