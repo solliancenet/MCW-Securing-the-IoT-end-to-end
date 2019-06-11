@@ -19,7 +19,7 @@ June 2019
   Program manager                 Insert the program manager's name   Insert the program manager's email
   Project manager                 Insert the project manager's name   Insert the project manager's name
   Tech lead                       Insert tech lead's name             Insert tech lead's email
-  Content developer vendor name   Insert vendor's name                Insert vendor's email
+  Content developer vendor name   Solliance                Insert vendor's email
   Stakeholder                     Insert stakeholders' name(s)        Insert stakeholders' email
   SME Team                        Insert lead SME name                Insert lead SME email
 

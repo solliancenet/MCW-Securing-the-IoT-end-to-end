@@ -32,7 +32,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Whiteboard design session flow](#whiteboard-design-session-flow)
     - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
     - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
-- [\[insert workshop name here\] whiteboard design session student guide](#\insert-workshop-name-here\-whiteboard-design-session-student-guide)
+- [Securing the IoT end to end whiteboard design session student guide](#securing-the-iot-end-to-end-whiteboard-design-session-student-guide)
     - [Abstract and learning objectives](#abstract-and-learning-objectives)
     - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
         - [Customer situation](#customer-situation)
@@ -43,7 +43,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Step 3: Present the solution](#step-3-present-the-solution)
     - [Wrap-up](#wrap-up)
     - [Additional references](#additional-references)
-- [\[insert workshop name here\] whiteboard design session trainer guide](#\insert-workshop-name-here\-whiteboard-design-session-trainer-guide)
+- [Securing the IoT end to end whiteboard design session trainer guide](#securing-the-iot-end-to-end-whiteboard-design-session-trainer-guide)
     - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
     - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
     - [Step 3: Present the solution](#step-3-present-the-solution-1)
@@ -197,11 +197,11 @@ Contoso, Ltd. has major holdings in one of the world’s most important oil-prod
 
 Their environments are very tough environments in which to work. The climate is hot, harsh, and unforgiving, and oil wells are often spaced many miles apart, so field technicians can spend much of their day just driving from one to another. Cellular and radio reception is spotty at best, so collecting data about well conditions and performance typically involves manually writing down information. The technician must then make the long trek to the central office at the end of the day to upload the data for analysis. With such remote situations, a key concern for Contoso is not only how they manage these remote devices, but more broadly how they secure the complete solution that encompasses the physical device, the software on the device, the services processing the data in the cloud and the network connecting it all. 
 
-Contoso plans to tie in to existing sensors at the well head that monitor key system parameters like temperatures, pressures, and flow rates. They will deploy gateway devices route device data for processing, storage and analytics. Internal IT staff and engineers want to visualize the high-resolution data and deliver near real-time analyses. The company is places a premium on flexibility and ease of use, with security as a fundamental. 
+Contoso plans to tie in to existing sensors at the well head that monitor key system parameters like temperatures, pressures, and flow rates. They will deploy gateway devices route device data for processing, storage and analytics. Internal IT staff and engineers want to visualize the high-resolution data and deliver near real-time analyses. The company is placing a premium on flexibility and ease of use, with security as a fundamental. 
 
-In addition, they would also like to the solution to yield benefits to their workers in the field. “The field technicians and lease operators already have tools on their phones that they use every day to see what a well is doing,” explains Miles Strom. “Our goal is to connect these tools to live data from the IoT sensors. So, instead of seeing low-resolution volumes or flow rates, they’ll see what is happening in real time. This way they can respond immediately to problems that lead to downtime or maintenance issues.”
+In addition, they would also like see the solution yield benefits to their workers in the field. “The field technicians and lease operators already have tools on their phones that they use every day to see what a well is doing,” explains Miles Strom. “Our goal is to connect these tools to live data from the IoT sensors. So, instead of seeing low-resolution volumes or flow rates, they’ll see what is happening in real time. This way they can respond immediately to problems that lead to downtime or maintenance issues.”
 
-They have implemented proof of concept solution for this collecting and analyzing device telemetry using IoT Hub, but are interested in learning about any related services in Azure that would help them to secure such solutions. 
+They have implemented a proof of concept solution for collecting and analyzing device telemetry using IoT Hub, but are interested in learning about any related services in Azure that would help them to secure such solutions. 
 
 ### Customer needs 
 
@@ -215,7 +215,7 @@ They have implemented proof of concept solution for this collecting and analyzin
 
 5.  Address the need to have auditing and monitoring across a wide range of device operating systems and processor architectures (Linux, x86, x64, etc).
 
-6.  Automate the security agent provisioning rather than having to physically or remotly "touch" all the devices.
+6.  Automate the security agent provisioning rather than having to physically or remotely "touch" all the devices.
 
 7.  Ensure only the most secure protocols are implemented and used during any transmissions
 
@@ -227,7 +227,7 @@ They have implemented proof of concept solution for this collecting and analyzin
 
 2.  Can Azure handle all the different types of operating systems and processor architectures of their devices?
 
-3.  Will they be able to monitor for specific events on some of their propriatery devices?
+3.  Will they be able to monitor for specific events on some of their proprietary devices?
 
 4.  Can Azure support non-TPM hardware devices?
 
@@ -239,12 +239,12 @@ They have implemented proof of concept solution for this collecting and analyzin
 
 8.  Is the solution capable of being flexible in the types of reporting and alerts that can be generated based on custom logging event data?
 
-9.  Will we be able to limit the messages and nework traffic to specific network IP addresses/subnets for our devices?
+9.  Will we be able to limit the messages and network traffic to specific network IP addresses/subnets for our devices?
 
 
 ### Infographic for common scenarios
 
-\[insert your custom workshop content here . . . \]
+![Envisioned situation](../Media/envisioned-situation.png)
 
 ## Step 2: Design a proof of concept solution
 
@@ -266,13 +266,57 @@ Directions: With all participants at your table, answer the following questions 
 
 Directions: With all participants at your table, respond to the following questions on a flip chart:
 
-*Title*
+*High-level architecture*
 
-1.  Number and insert questions here
+Without getting into the details (the following sections will address the details), diagram your initial vision for handling the top-level requirements.
 
-*Title*
+Briefly sketch-out and propose a high-level solution that meets the customer's business and technical needs and mitigates their objections. For this workshop, you may choose from the following technologies (you may not need all of them in the correct solution):
 
-1.  Number and insert questions here
+1.  IoT Hub and Provisioning Service
+
+2.  Azure Networks and Network Security Groups
+
+3.  Virtual Private Networks (Point to Point, Site to Site) and Express Route
+
+4.  Azure Web Apps
+
+5.  Azure Log Analytics
+
+6.  Azure Security Center
+
+7.  Azure Sentinel
+
+8.  Azure Active Directory
+
+*Azure Security*
+
+Describe how you will utilize Azure security features to secure the various resources such as the following:
+
+1.  How will you secure the IoT Hub?
+
+2.  How will you secure the IoT Provisioning Service?
+
+*Device Security*
+
+Describe how you will secure the following:
+
+1.  How will you secure the IoT Edge Devices?
+
+2.  How will you secure the IoT Devices?
+
+*Ensuring auditing and compliance*
+
+Describe how you will use Azure features to ensure the following:
+
+1.  How will you monitor and audit device access?
+
+2.  How will you monitor and audit network traffic across Virtual Networks?
+
+3.  How will you monitor and audit Azure resource changes?
+
+4.  Create custom alerts and execute remediation and investigation activities on detection?
+
+5.  What tools would you setup to surface audit and compliance reporting to IT Executives?
 
 **Prepare**
 
@@ -391,58 +435,91 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 Without getting into the details (the following sections will address the details), diagram your initial vision for handling the top-level requirements.
 
-1.  Number and insert questions here
+Briefly sketch-out and propose a high-level solution that meets the customer's business and technical needs and mitigates their objections. For this workshop, you may choose from the following technologies (you may not need all of them in the correct solution):
+
+1.  IoT Hub and Provisioning Service
+
+2.  Azure Networks and Network Security Groups
+
+3.  Virtual Private Networks (Point to Point, Site to Site) and Express Route
+
+4.  Azure Web Apps
+
+5.  Azure Log Analytics
+
+6.  Azure Security Center
+
+7.  Azure Sentinel
+
+8.  Azure Active Directory
 
 *Azure Security*
 
-1.  Number and insert questions here
+Describe how you will utilize Azure security features to secure the various resources such as the following:
+
+1.  How will you secure the IoT Hub?
+
+2.  How will you secure the IoT Provisioning Service?
 
 *Device Security*
 
-1.  Number and insert questions here
+Describe how you will secure the following:
 
-*Auditing and Alerting*
+1.  How will you secure the IoT Edge Devices?
 
-1.  Number and insert questions here
+2.  How will you secure the IoT Devices?
 
+*Ensuring auditing and compliance*
+
+Describe how you will use Azure features to ensure the following:
+
+1.  How will you monitor and audit device access?
+
+2.  How will you monitor and audit network traffic across Virtual Networks?
+
+3.  How will you monitor and audit Azure resource changes?
+
+4.  Create custom alerts and execute remediation and investigation activities on detection?
+
+5.  What tools would you setup to surface audit and compliance reporting to IT Executives?
 
 ## Checklist of preferred objection handling
 
 1.  Contoso, Ltd staff are worried it may be impossible to manage the many thousands of IoT devices they have deployed around the world with any one product.
 
--   TODO
+-   Utilizing the Azure IoT Hub Device Provisioning Service, Contoso can enable a zero-touch, just-in-time provisioning to specific IoT hubs without any human intervention.  The service scales to many millions of devices in a secure and scalable manner that will meet Contoso's needs.
 
 2.  Can Azure handle all the different types of operating systems and processor architectures of their devices?
 
--   TODO
+-   The Azure IoT Agents have been release with ANSI-C standards in mind.  The code is freely available on GitHub along with an entire SDK that will enable Contoso to easily re-compile the source for any target device.
 
-3.  Will they be able to monitor for specific events on some of their propriatery devices?
+3.  Will they be able to monitor for specific events on some of their propriatary devices?
 
--   TODO
+-   Yes, they can monitor for custom events on their propriatary devices using the Azure IoT SDK to send message and events to their specific IoT Hub(s).
 
 4.  Can Azure support non-TPM hardware devices?
 
--   TODO
+-   Yes, you can recompile the source code to utilize simulated/software TPMs, however this is not a standard or accepted way of doing secure device management in production environments.
 
 5.  Will the communications from a device to Azure be secure enough?
 
--   TODO
+-   Absoultely, the Azure IoT SDKs come with support for several different protocols including the latest HTTPS and SSL features.
 
 6.  Can an Azure logging solution handle the massive amount of events and alerts that will need to be ingested?
 
--   TODO
+-   Yes, at the lowest plan level, you can send 500MB of data to a Log Analytics workspace.  Standard and Premium plans have no limit on the amount of data uploaded even if it is terabytes per day.
 
 7.  Is it possible to assign role-based permissions based on their security objectives and policies to the IoT resources such as the Hub, Edge and individual devices? 
 
--   TODO
+-   Yes, Azure IoT resources come with a management plane that gives you flexiblity to allow various levels of permissions to target specific roles of your IoT Infrastructure.
 
 8.  Is the solution capable of being flexible in the types of reporting and alerts that can be generated based on custom logging event data?
 
--   TODO
+-   Yes, you can choose to utilize the out of box alert templates, or create your own templates based on common Azure and Operating System events, or even your own custom events.
 
-9.  Will we be able to limit the messages and nework traffic to specific network IP addresses/subnets for our devices?
+9.  Will we be able to limit the messages and network traffic to specific network IP addresses/subnets for our devices?
  
- -   TODO
+ -   Yes, you can enable IP Filtering in the IoT Hub to ensure that only messages that originate from specific IPs or subnet are allowed to flow through to the IoT Hub(s).
 
 ## Customer quote (to be read back to the attendees at the end)
 
