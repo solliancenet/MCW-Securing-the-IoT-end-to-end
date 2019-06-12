@@ -310,13 +310,11 @@ Describe how you will use Azure features to ensure the following:
 
 1.  How will you monitor and audit device access?
 
-2.  How will you monitor and audit network traffic across Virtual Networks?
+2.  How will you monitor and audit Azure resource changes?
 
-3.  How will you monitor and audit Azure resource changes?
+3.  Create custom alerts and execute remediation and investigation activities on detection?
 
-4.  Create custom alerts and execute remediation and investigation activities on detection?
-
-5.  What tools would you setup to surface audit and compliance reporting to IT Executives?
+4.  What tools would you setup to surface audit and compliance reporting to IT Executives?
 
 **Prepare**
 
@@ -459,7 +457,15 @@ Describe how you will utilize Azure security features to secure the various reso
 
 1.  How will you secure the IoT Hub?
 
+-   Utilizing Azure Access control (IAM) mechanisms you can set the permissions to access and modify the IoT Hub resource to the proper individuals.
+-   By implementing Shared Access Policies, you can create policies that grant permission to perform actions on the IoT Hub such as Registry read, Registry write, Service connect and Device connect.
+-   Using IP Filters, you can limit the devices that can connect to your IoT hub to a set of IP Addresses.
+-   Enabling Diagnostic settings to send changes to a Log Analtyics workspace will enable to you fire alerts based on management plane based activites.
+
 2.  How will you secure the IoT Provisioning Service?
+
+-   Similar to an IoT Hub resource, you can utilize Azure Access Control (IAM) and a similar Shared Access Policies setup to acheive your desired permissions configuration
+-   You can also enable Diagnostic settings to log management plane changes
 
 *Device Security*
 
@@ -467,7 +473,12 @@ Describe how you will secure the following:
 
 1.  How will you secure the IoT Edge Devices?
 
+-   Azure IoT Edge is inherintly secure on its own through the Azure IoT Edge security manager dameon.  However, any actor with access to the device as root or administrator can make changes to the device.  For this reason, you should ensure that the device utilizes the Azure IoT Security Agent to monitor for security events or configuration changes that could affect the ssecurity integrity of the IoT Edge device.
+
 2.  How will you secure the IoT Devices?
+
+-   Similar to an IoT Edge device, these devices should have the Azure IoT Security agent installed.  Devices should also utilize hardware based secure silicon features (such as TPM, eSE, Arm TrustZone and Intel SGX) to ensure that the device is not accessed physically and modified in any way.  
+-   All devices should have unique certificates to identify them to the IoT Edge devices and the IoT Hub.
 
 *Ensuring auditing and compliance*
 
@@ -475,13 +486,19 @@ Describe how you will use Azure features to ensure the following:
 
 1.  How will you monitor and audit device access?
 
-2.  How will you monitor and audit network traffic across Virtual Networks?
+-   Local device logs and security events can be sent to IoT Edge devices for storage, processing and possibly forwarding to the IoT Hub.  Most major logs should be sent to the IoT Hub where you will have Azure Security Center for IoT monitoring those events and firing alerts on abnormal activity.
 
-3.  How will you monitor and audit Azure resource changes?
+2.  How will you monitor and audit Azure resource changes?
 
-4.  Create custom alerts and execute remediation and investigation activities on detection?
+-   By enabling Diagnostic Logging on all Azure resources, you can have those events logged into a Log Analytics workspace.
 
-5.  What tools would you setup to surface audit and compliance reporting to IT Executives?
+3.  Create custom alerts and execute remediation and investigation activities on detection?
+
+-   Since all data will be ingested into Log Analytics, you can build any number of custom alerts to notify the proper individuals or execute Playbooks that start remediation or investigative activities.
+
+4.  What tools would you setup to surface audit and compliance reporting to IT Executives?
+
+-   You can utilize PowerBI to surface Log Analytics data into easy to read dashboards that are accessbile only to the property individuals.
 
 ## Checklist of preferred objection handling
 

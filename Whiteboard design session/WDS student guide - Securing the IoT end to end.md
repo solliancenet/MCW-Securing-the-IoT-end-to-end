@@ -184,13 +184,11 @@ Describe how you will use Azure features to ensure the following:
 
 1.  How will you monitor and audit device access?
 
-2.  How will you monitor and audit network traffic across Virtual Networks?
+2.  How will you monitor and audit Azure resource changes?
 
-3.  How will you monitor and audit Azure resource changes?
+3.  Create custom alerts and execute remediation and investigation activities on detection?
 
-4.  Create custom alerts and execute remediation and investigation activities on detection?
-
-5.  What tools would you setup to surface audit and compliance reporting to IT Executives?
+4.  What tools would you setup to surface audit and compliance reporting to IT Executives?
 
 **Prepare**
 
