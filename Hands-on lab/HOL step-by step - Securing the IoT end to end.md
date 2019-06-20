@@ -33,18 +33,30 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Solution architecture](#solution-architecture)
     - [Requirements](#requirements)
     - [Before the hands-on lab](#before-the-hands-on-lab)
-    - [Exercise 1: Configure IoT Services](#exercise-1-exercise-name)
-        - [Task 1: Task name](#task-1-task-name)
-        - [Task 2: Task name](#task-2-task-name)
-    - [Exercise 2: Provision devices](#exercise-2-exercise-name)
-        - [Task 1: Task name](#task-1-task-name-1)
-        - [Task 2: Task name](#task-2-task-name-1)
-    - [Exercise 3: Exercise name](#exercise-3-exercise-name)
-        - [Task 1: Task name](#task-1-task-name-2)
-        - [Task 2: Task name](#task-2-task-name-2)
+    - [Exercise 1: Configure IoT Services](#exercise-1-configure-iot-services)
+        - [Task 1: Link Provision Service to IoT Hub](#task-1-link-device-provisioning-service-to-iot-hub)
+        - [Task 2: Enable Azure Security Center for IoT](#task-2-enable-azure-security-center-for-iot
+    - [Exercise 2: Enroll and Provision IoT Devices](#exercise-2-enroll-and-provision-iot-devices)
+        - [Task 1: Configure your devcies](#task-1-configure-your-devices)
+        - [Task 2: Update and Install Azure IoT SDK prerequisites](#task-2-update-and-install-azure-iot-sdk-prerequisites)
+        - [Task 3: Download and compile the Azure IoT SDK](#task-3-download-and-compile-the-azure-iot-skd)
+        - [Task 4: Attempt Device Enrollment](#task-4-attempt-device-enrollment)
+        - [Task 5: Install a software TPM and Resource Manager](#task-5-install-a-software-tpm-and-resource-manager)
+    - [Exercise 3: Install and Configure IoT Edge](#exercise-3-install-and-configure-iot-edge)
+        - [Task 1: Install IoT Edge](#task-1-install-iot-edge)
+        - [Task 2: Configure the IoT Edge Agent](#task-2-configure-the-iot-edge-agent)
+    - [Exercise 4: Install Azure Security IoT Agent](#exercise-4-install-azure-security-iot-agent)
+        - [Task 1: Install the Security Agent](#task-1-install-the-security-agent)
+        - [Task 2: Install the IoT Hub Security Agent Module](#task-2-install-the-iot-hub-security-agent-module)
+    - [Exercise 5: Simulate IoT Attacks](#exercise-5-simulate-iot-attacks)
+        - [Task 1: Setup and execute Attack Scripts](#task-1-setup-and-execute-attack-scripts)
+    - [Exercise 6: Configure Security and Alerts](#exercise-6-configure-security-and-alerts)
+        - [Task 1: Configure Diagnostic Logging on IoT Hub](#task-2-configure-diagnostic-logging-on-iot-hub)
+        - [Task 2: Configure Diagnostic Logging on Device Provisioning Service](#task-2-configure-diagnostic-logging-on-device-provisioning-service)
+        - [Task 3: Review Security Log Data](#task-3-review-security-log-data)
+        - [Task 4: Create Custom Security Alerts](#task-4-create-custom-security-alerts)
     - [After the hands-on lab](#after-the-hands-on-lab)
-        - [Task 1: Task name](#task-1-task-name-3)
-        - [Task 2: Task name](#task-2-task-name-3)
+        - [Task 1: Delete resource group](#task-1-delete-resource-group)
 
 <!-- /TOC -->
 
@@ -70,9 +82,13 @@ In addition, they would also like the solution to yield benefits to their worker
 
 They have implemented a proof of concept solution for collecting and analyzing device telemetry using IoT Hub, but are interested in learning about any related services in Azure that would help them to secure such solutions.
 
-## Solution architecture
+## Solution architecture (High-level)
 
-\[Insert your end-solution architecture here. . .\]
+![The proposed solution utilizing Azure Security Center for IoT and its agents to monitor and secure the IoT Devcies.  Log data is forwarded to Log Analytics where alerts and logic apps will execute to start investigation and remediation](../Media/solution-diagram-1.png "Solution Architecture")
+
+## Solution architecture (Analytics)
+
+![The Analytics solution using Stream Analytics, Cosmos DB, Time-series and a hosted application in an App Server](../Media/solution-diagram-2.png "Analytics Solution")
 
 ## Requirements
 
@@ -90,7 +106,7 @@ Duration: 15 minutes
 
 Synopsis:  In this exercise you will link your provisioning service to your IoT Hub.  Once this is completed, you will enable the Azure Security Center for IoT on your IoT Hub.  With this plumbing in place, you can start to create your device enrollments and to provision your IoT devices.
 
-### Task 1: Link Provision Service to IoT Hub
+### Task 1: Link Device Provisioning Service to IoT Hub
 
 1.  Open the Azure Portal
 
@@ -295,7 +311,7 @@ sudo apt-get install iotedge
 
 ```
 
-### Task 2: Configure the Iot Edge Agent
+### Task 2: Configure the IoT Edge Agent
 
 1.  Switch to the Azure Portal, open your **oilwells-prov-[YOUR INIT]** resource
 
@@ -500,7 +516,7 @@ Duration: X minutes
 
 \[insert your custom Hands-on lab content here . . .\]
 
-### Task 1: Setup the Attack scripts
+### Task 1: Setup and Execute Attack scripts
 
 1.  Run the following command:
 

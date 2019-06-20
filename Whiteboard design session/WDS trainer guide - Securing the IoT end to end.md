@@ -435,6 +435,8 @@ Without getting into the details (the following sections will address the detail
 
 Briefly sketch-out and propose a high-level solution that meets the customer's business and technical needs and mitigates their objections. For this workshop, you may choose from the following technologies (you may not need all of them in the correct solution):
 
+![The proposed solution utilizing Azure Security Center for IoT and its agents to monitor and secure the IoT Devcies.  Log data is forwarded to Log Analytics where alerts and logic apps will execute to start investigation and remediation](../Media/solution-diagram-1.png "Solution Architecture")
+
 1.  IoT Hub and Provisioning Service
 
 2.  Azure Networks and Network Security Groups
