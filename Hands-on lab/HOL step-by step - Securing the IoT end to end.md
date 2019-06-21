@@ -147,7 +147,23 @@ You will also enable diagnostic logging such that you can create custom alerts l
 
 7.  Click **Save**
 
-### Task 3: Configure Diagnostic Logging on IoT Hub
+### Task 3: Enable Azure Audit Logging
+
+1.  Open your Azure Portal
+
+2.  Select your **iotsecurity** resource group
+
+3.  In the blade menu, select **Activity Log**
+
+4.  In the top menu, click **Logs**
+
+5.  In the top menu, click **+ Add**
+
+6.  Select the **oilwells-logging-[YOUR INIT]**
+
+7.  Click **OK**, this will send all Azure level configuration and diagnostic events to the Log Analytics workspace
+
+### Task 4: Configure Diagnostic Logging on IoT Hub
 
 1.  Open your Azure Portal
 
@@ -165,7 +181,7 @@ You will also enable diagnostic logging such that you can create custom alerts l
 
 8.  Click **Save**
 
-### Task 4: Configure Diagnostic Logging on Device Provisioning Service
+### Task 5: Configure Diagnostic Logging on Device Provisioning Service
 
 2.  Click the **oilwells-prov-[YOUR INIT]** IoT Device Provisioning Service
 
@@ -683,12 +699,13 @@ This exercise will evaluate the logs from when you enabled diagnostic logging on
 4.  In the query window, paste the following:
 
 ```SQL
-AzureDiagnostics
+AzureActivity
 | limit 50
-| where parse_json(properties_s).deviceId == "OilWells001" 
+| sort by TimeGenerated desc
+| where Resource == "oilwells-iothub-[YOUR INIT]" 
 ```
 
-5.  Click **Run**, you should see all the evenst tied to that device
+5.  Click **Run**, you should see all the admin events tied to the IoT Hub
 
 6.  Click **New alert rule**
 
@@ -698,11 +715,11 @@ AzureDiagnostics
 
 9.  Click **Create action group**
 
-10.  For the group name type **Email IoT Admins**
+10.  For the group name type **Email IoT Hub Admins**
 
 11.  For the short name type **Email**
 
-12.  For the action name, type **Email IoT Admins**
+12.  For the action name, type **Email IoT Hub Admins**
 
 13.  Type an email alias
 
@@ -710,7 +727,7 @@ AzureDiagnostics
 
 15.  Click **OK**
 
-16.  For the **Alert rule name**, type **Device key reset**
+16.  For the **Alert rule name**, type **IoT Hub Modified**
 
 17.  Click **Create alert rule**
 
