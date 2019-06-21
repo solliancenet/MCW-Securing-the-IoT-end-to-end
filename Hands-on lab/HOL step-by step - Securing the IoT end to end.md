@@ -33,9 +33,11 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Solution architecture](#solution-architecture)
     - [Requirements](#requirements)
     - [Before the hands-on lab](#before-the-hands-on-lab)
-    - [Exercise 1: Configure IoT Services](#exercise-1-configure-iot-services)
+    - [Exercise 1: Secure and Configure IoT Hub and Device Provisioning Service](#exercise-1-secure-and-configure-iot-hub-and-device-provisioning-service)
         - [Task 1: Link Provision Service to IoT Hub](#task-1-link-device-provisioning-service-to-iot-hub)
         - [Task 2: Enable Azure Security Center for IoT](#task-2-enable-azure-security-center-for-iot)
+        - [Task 3: Configure Diagnostic Logging on IoT Hub](#task-3-configure-diagnostic-logging-on-iot-hub)
+        - [Task 4: Configure Diagnostic Logging on Device Provisioning Service](#task-4-configure-diagnostic-logging-on-device-provisioning-service)
     - [Exercise 2: Enroll and Provision IoT Devices](#exercise-2-enroll-and-provision-iot-devices)
         - [Task 1: Configure your devcies](#task-1-configure-your-devices)
         - [Task 2: Update and Install Azure IoT SDK prerequisites](#task-2-update-and-install-azure-iot-sdk-prerequisites)
@@ -51,10 +53,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Exercise 5: Simulate IoT Attacks](#exercise-5-simulate-iot-attacks)
         - [Task 1: Setup and execute Attack Scripts](#task-1-setup-and-execute-attack-scripts)
     - [Exercise 6: Configure Security and Alerts](#exercise-6-configure-security-and-alerts)
-        - [Task 1: Configure Diagnostic Logging on IoT Hub](#task-1-configure-diagnostic-logging-on-iot-hub)
-        - [Task 2: Configure Diagnostic Logging on Device Provisioning Service](#task-2-configure-diagnostic-logging-on-device-provisioning-service)
-        - [Task 3: Review Security Log Data](#task-3-review-security-log-data)
-        - [Task 4: Create Custom Security Alerts](#task-4-create-custom-security-alerts)
+        - [Task 1: Review Security Log Data](#task-1-review-security-log-data)
+        - [Task 2: Create Custom Security Alerts for Device Events](#task-2-create-custom-security-alerts-for-device-events)
+        - [Task 3: Create Custom Security Alerts for Azure Events](#task-3-create-custom-security-alerts-for-azure-events)
     - [After the hands-on lab](#after-the-hands-on-lab)
         - [Task 1: Delete resource group](#task-1-delete-resource-group)
 
@@ -100,11 +101,13 @@ They have implemented a proof of concept solution for collecting and analyzing d
 
 Refer to the Before the hands-on lab setup guide manual before continuing to the lab exercises.
 
-## Exercise 1: Configure IoT Services
+## Exercise 1: Secure and Configure IoT Hub and Device Provisioning Service
 
 Duration: 15 minutes
 
-Synopsis:  In this exercise you will link your provisioning service to your IoT Hub.  Once this is completed, you will enable the Azure Security Center for IoT on your IoT Hub.  With this plumbing in place, you can start to create your device enrollments and to provision your IoT devices.
+Synopsis:  In this exercise you will link your provisioning service to your IoT Hub.  Once this is completed, you will enable the Azure Security Center for IoT on your IoT Hub.  With this plumbing in place, you can start to create your device enrollments and to provision your IoT devices. 
+
+You will also enable diagnostic logging such that you can create custom alerts later in this lab.
 
 ### Task 1: Link Device Provisioning Service to IoT Hub
 
@@ -143,6 +146,42 @@ Synopsis:  In this exercise you will link your provisioning service to your IoT 
 ![Enabling the Azure Security Center for IoT](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex1_image004.png "Enable Security Center settings")
 
 7.  Click **Save**
+
+### Task 3: Configure Diagnostic Logging on IoT Hub
+
+1.  Open your Azure Portal
+
+2.  Click the **oilwells-iothub-[YOUR INIT]** IoT hub
+
+3.  In the blade menu, scroll to the **Monitoring** section, then click **Diagnostic settings**
+
+4.  Click **Add diagnostic setting**
+
+5.  For the name, type **oilwells-iothub-logging**
+
+6.  Check the **Send to Log Analtyics** checkbox, and then select the **oilwells-logging-[YOUR INIT]** workspace
+
+7.  Check all the LOG checkboxes
+
+8.  Click **Save**
+
+### Task 4: Configure Diagnostic Logging on Device Provisioning Service
+
+2.  Click the **oilwells-prov-[YOUR INIT]** IoT Device Provisioning Service
+
+3.  In the blade menu, scroll to the **Monitoring** section, then click **Diagnostic settings**
+
+4.  Click **Add diagnostic setting**
+
+5.  For the name, type **oilwells-prov-logging**
+
+6.  Check the **Send to Log Analtyics** checkbox, and then select the **oilwells-logging-[YOUR INIT]** workspace
+
+7.  Check all the LOG checkboxes
+
+8.  Click **Save**
+
+> NOTE:  It may take 5-10 minutes for event data to populate into the Log Analytics and then for Security Center recommendations to display
 
 ## Exercise 2: Enroll and Provision IoT Devices
 
@@ -304,7 +343,7 @@ sudo ./tpm_device_provision
 
 9.  Click **Save**
 
-## Exercise 3: Install IoT Edge
+## Exercise 3: Install and Configure IoT Edge
 
 Duration: 30 minutes
 
@@ -601,45 +640,9 @@ sudo ./trigger_events.sh --malicious
 
 Duration: 20 minutes
 
-This exercise will have you enable diagnostic logging on your Azure resources and then setup some alerts based on any important configuration changes that an Azure user may make to your IoT infrastructure.
+This exercise will evaluate the logs from when you enabled diagnostic logging on your Azure resources and then setup some alerts based on any important configuration changes that an Azure user may make to your IoT infrastructure.
 
-### Task 1: Configure Diagnostic Logging on IoT Hub
-
-1.  Open your Azure Portal
-
-2.  Click the **oilwells-iothub-[YOUR INIT]** IoT hub
-
-3.  In the blade menu, scroll to the **Monitoring** section, then click **Diagnostic settings**
-
-4.  Click **Add diagnostic setting**
-
-5.  For the name, type **oilwells-iothub-logging**
-
-6.  Check the **Send to Log Analtyics** checkbox, and then select the **oilwells-logging-[YOUR INIT]** workspace
-
-7.  Check all the LOG checkboxes
-
-8.  Click **Save**
-
-### Task 2: Configure Diagnostic Logging on Device Provisioning Service
-
-2.  Click the **oilwells-prov-[YOUR INIT]** IoT hub
-
-3.  In the blade menu, scroll to the **Monitoring** section, then click **Diagnostic settings**
-
-4.  Click **Add diagnostic setting**
-
-5.  For the name, type **oilwells-prov-logging**
-
-6.  Check the **Send to Log Analtyics** checkbox, and then select the **oilwells-logging-[YOUR INIT]** workspace
-
-7.  Check all the LOG checkboxes
-
-8.  Click **Save**
-
-> NOTE:  It may take 5-10 minutes for event data to populate into the Log Analytics and then for Security Center recommendations to display
-
-### Task 3: Review Security Log Data
+### Task 1: Review Azure Security for IoT Log Data
 
 1.  Open your Azure Portal
 
@@ -653,7 +656,7 @@ This exercise will have you enable diagnostic logging on your Azure resources an
 
 6.  Expand the log
 
-### Task 4: Create Custom Security Alerts
+### Task 2: Create Custom Security Alerts for Device Events
 
 1.  Open your Azure Portal
 
@@ -668,6 +671,48 @@ This exercise will have you enable diagnostic logging on your Azure resources an
 6.  Review the available options, then select **Number of failed local logins is not in allowed range**
 
 7.  Click **Ok**, then click **Save**
+
+### Task 3: Create Custom Security Alerts for Azure Events
+
+1.  Open your Azure Portal
+
+2.  Click the **oilwells-logging-[YOUR INIT]** IoT hub
+
+3.  In the blade menu, in the **General** section, click **Logs**
+
+4.  In the query window, paste the following:
+
+```SQL
+AzureDiagnostics
+| limit 50
+| where parse_json(properties_s).deviceId == "OilWells001" 
+```
+
+5.  Click **Run**, you should see all the evenst tied to that device
+
+6.  Click **New alert rule**
+
+7.  Select the condition, for the threshold, type **1**, click **Save**
+
+8.  Under **Actions**, click **Add**
+
+9.  Click **Create action group**
+
+10.  For the group name type **Email IoT Admins**
+
+11.  For the short name type **Email**
+
+12.  For the action name, type **Email IoT Admins**
+
+13.  Type an email alias
+
+14.  Click **OK**
+
+15.  Click **OK**
+
+16.  For the **Alert rule name**, type **Device key reset**
+
+17.  Click **Create alert rule**
 
 ## After the hands-on lab 
 
