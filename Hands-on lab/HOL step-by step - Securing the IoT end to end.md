@@ -229,13 +229,13 @@ make
 sudo ./tpm_device_provision
 ```
 
->NOTE:  This command will fail on a device that does not have a hardward or software TPM installed.
+>NOTE:  This command will fail on a device that does not have a hardward or software TPM installed.  In order to utilize a hardward based TPM, you would need an actual device, or a nested TPM enabled virtual machine running.  The Azure template provisionged an Ubuntu image that does not have a hardward TPM enabled.
 
 ![This shows what happens with the device does not have a hardware or software TPM ](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex2_image003.png "Failed TPM command")
 
 ### Task 5: Install a software TPM and Resource Manager and reattempt Device Enrollment
 
-> NOTE:  If you have a hardware TPM, you can skip to step 3
+> NOTE:  If you have a hardware TPM in your device, you can skip to step 3
 
 1.  Run the following commands to download, compile and start a software based TPM server
 
@@ -306,13 +306,15 @@ sudo ./tpm_device_provision
 
 ## Exercise 3: Install IoT Edge
 
-Duration: 15 minutes
+Duration: 30 minutes
 
 In this exercise you will install the Azure IoT Edge agent on your IoT device and then register the new device with your IoT Hub.
 
 ### Task 1: Install IoT Edge
 
 1.  Run the following command:
+
+>NOTE: Change the ubuntu version as appropriate (16.04 vs 18.04).  You can get your version by running "lsb_release -a"
 
 ```PowerShell
 curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > ./microsoft-prod.list
@@ -323,16 +325,17 @@ curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microso
 
 sudo cp ./microsoft.gpg /etc/apt/trusted.gpg.d/
 
+sudo apt-get update
+
 sudo apt-get install moby-engine
 sudo apt-get install moby-cli
 
 sudo apt-get install iotedge
-
 ```
 
 ### Task 2: Configure the IoT Edge Agent
 
-1.  Switch to the Azure Portal, open your **oilwells-prov-[YOUR INIT]** resource
+1.  Switch to the Azure Portal, open your **oilwells-prov-[YOUR INIT]** device provisioning resource
 
 2.  In the overview, copy the **ID Scope**
 
@@ -354,13 +357,27 @@ sudo apt-get install iotedge
 sudo nano /etc/iotedge/config.yaml
 ```
 
-10.  Comment out the manual provision settings, uncomment the **dps** settings, then copy in the Id Scope and Registration Id information:
+10.  There are several ways to register your device with the provisioning service.  This includes "manual" with a device connection string, TPM registration, and symmetric key.  The most simple provisioning method is "manual" with a device connection string.  Each way is presented below, you need only pick one.  Note that TPM registration requires a software or hardware TPM:
 
-> NOTE:  Be sure that the leading lines have "tabs" that are made up of only 2 space characters
+> NOTE:  Be sure that the leading lines have "tabs" that are made up of only 2 space characters.
 
-![A running software TPM.](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex2_image008.png "A running software TPM")
+-  Manual Provisioning
 
-11.  Although we are using a software TPM, you would need to give permissions to the hardware TPM to the iotedge service by running the following commands:
+    -  Copy the device connection string from the IoT Hub, paste it into the config.yaml file
+    -  Save the file
+
+-  Symmetric Key Provisioning
+
+    -  Comment out the manual provision settings, uncomment the **dps symmetric key** settings, then copy in the symmetric key and Registration Id information
+    -  Save the file
+
+-  TPM Provisioning
+
+    -  Comment out the manual provision settings, uncomment the **dps TPM** settings, then copy in the Id Scope and Registration Id information:
+
+    ![A running software TPM.](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex2_image008.png "A running software TPM")
+
+    -  Although we are using a software TPM, you would need to give permissions to the hardware TPM to the iotedge service by running the following commands:
 
 ```PowerShell
 tpm=$(sudo find /sys -name dev -print | fgrep tpm | sed 's/.\{4\}$//')
@@ -368,32 +385,32 @@ tpm=$(sudo find /sys -name dev -print | fgrep tpm | sed 's/.\{4\}$//')
 sudo touch /etc/udev/rules.d/tpmaccess.rules
 ```
 
-12.  Run the following command to open a text editor:
+    -  Run the following command to open a text editor:
 
 ```PowerShell
 sudo nano /etc/udev/rules.d/tpmaccess.rules
 ```
 
-13.  Copy the following into the file:
+    -  Copy the following into the file:
 
-```
+```PowerShell
 # allow iotedge access to tpm0
 KERNEL=="tpm0", SUBSYSTEM=="tpm", GROUP="iotedge", MODE="0660"
 ```
-14.  Execute the following:
+    -  Execute the following:
 
-```
+```PowerShell
 /bin/udevadm trigger $tpm
 ```
 
-15.  Run the following command to open a text editor:
+11.  Run the following commands to restart the iotedge service:
 
 ```PowerShell
 sudo systemctl restart iotedge
 sudo systemctl status iotedge
 ```
 
-16.  You should see the status as **started**.  
+12.  You should see the status as **active**.  
 
 ![The Azure IoT Edge daemon shows active.](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex2_image009.png "Successful service start")
 
@@ -413,7 +430,7 @@ sudo docker ps
 
 Duration: 15 minutes
 
-\[insert your custom Hands-on lab content here . . .\]
+In this exercise you will install the Azure Security IoT Agent directly and via an Azure IoT Edge module.
 
 ### Task 1: Install the Security Agent
 
@@ -429,7 +446,7 @@ sudo apt-get install auditd audispd-plugins
 
 #extract the release binaries
 
-cd Azure-IoT-Security-Agent-C/binary
+cd Azure-IoT-Security-Agent-C/release
 
 sudo tar -zxvf ubuntu-16.04-x64.tar.gz
 sudo cp -r agent/Install/. /var/ASCIoTAgent
@@ -438,13 +455,13 @@ cd /var/ASCIoTAgent
 
 sudo chmod +x InstallSecurityAgent.sh
 
-sudo ./InstallSecurityAgent.sh -aui Device -aum SymmetricKey -f /var/certs/key -hn oilwells-iothub-cjg.azure-devices.net -di OilWell001 -i
+sudo ./InstallSecurityAgent.sh -aui Device -aum SymmetricKey -f /var/certs/key -hn oilwells-iothub-[YOURINIT].azure-devices.net -di OilWell001 -i
 
 sudo mkdir /var/certs
 
 sudo nano /var/certs/key
 ```
-2.  Copy the primay key from the device and copy it into the file
+2.  Copy the primay key for the device from the Azure Portal and copy it into the file
 
 3.  Run the following command to start the security agent:
 
@@ -452,6 +469,16 @@ sudo nano /var/certs/key
 sudo systemctl start ASCIoTAgent
 sudo systemctl status ASCIoTAgent
 ```
+
+4.  The status of the service will not be **started**.  Run the following command:
+
+```PowerShell
+sudo journalctl -u ASCIoTAgent
+```
+
+5.  You should see an error about the azureiotsecurity module not being registered
+
+TODO
 
 ### Task 2: Install the IoT Hub Security Agent Module
 
@@ -495,7 +522,9 @@ mcr.microsoft.com/ascforiot/azureiotsecurity:0.0.3
 }    
 ```
 
-10.  Copy the following into the twin's desired properties textarea:
+10.  Select the **Set module twin's desired properties** checkbox
+
+11.  Copy the following into the twin's desired properties textarea:
 
 ```
 {
@@ -506,15 +535,15 @@ mcr.microsoft.com/ascforiot/azureiotsecurity:0.0.3
 }
 ```
 
-11.  Click **Save**
+12.  Click **Save**
 
-12.  Click **Configure advanced Edge Runtime settings**
+13.  Click **Configure advanced Edge Runtime settings**
 
-13.  Change the image name to **mcr.microsoft.com/ascforiot/edgehub:1.0.9-preview**
+14.  Change the image name to **mcr.microsoft.com/ascforiot/edgehub:1.0.9-preview**, then click **Save**
 
-12.  Click **Next**
+15.  Click **Next**
 
-13.  On the routes dialog, replace with the following:
+16.  On the routes dialog, replace with the following:
 
 ```
 {
@@ -525,27 +554,36 @@ mcr.microsoft.com/ascforiot/azureiotsecurity:0.0.3
 }
 ```
 
-14.  Click **Next**
+17.  Click **Next**
 
-15.  Click **Submit**
+18.  Click **Submit**
+
+19.  Run the following command to start the security agent:
+
+```PowerShell
+sudo systemctl start ASCIoTAgent
+sudo systemctl status ASCIoTAgent
+```
+
+20.  The status should now show **active**
 
 ## Exercise 5: Simulate IoT Attacks
 
-Duration: `5 minutes
+Duration: 10 minutes
 
-\[insert your custom Hands-on lab content here . . .\]
+This exercise will have you install some "fake" processes and open some non-standard ports on your IoT device.  Once your attacks have been executed, the Security Agent will pick up these bad configurations and send them to the IoT Hub and the Azure Security Center will notify you.
 
 ### Task 1: Setup and Execute Attack scripts
 
 1.  Run the following command:
 
-```
+```PowerShell
 sudo apt-get install netcat
 ```
 
 2.  Download and execute the attack script:
 
-```
+```PowerShell
 cd
 
 git clone https://github.com/Azure/Azure-IoT-Security --recursive
@@ -557,14 +595,13 @@ sudo chmod +x trigger_events.sh
 sudo ./trigger_events.sh --exploit
 
 sudo ./trigger_events.sh --malicious
-
 ```
 
 ## Exercise 6: Configure Security and Alerts
 
-Duration: 15 minutes
+Duration: 20 minutes
 
-\[insert your custom Hands-on lab content here . . .\]
+This exercise will have you enable diagnostic logging on your Azure resources and then setup some alerts based on any important configuration changes that an Azure user may make to your IoT infrastructure.
 
 ### Task 1: Configure Diagnostic Logging on IoT Hub
 
@@ -572,7 +609,7 @@ Duration: 15 minutes
 
 2.  Click the **oilwells-iothub-[YOUR INIT]** IoT hub
 
-3.  Click **Diagnostic settings**
+3.  In the blade menu, scroll to the **Monitoring** section, then click **Diagnostic settings**
 
 4.  Click **Add diagnostic setting**
 
@@ -588,7 +625,7 @@ Duration: 15 minutes
 
 2.  Click the **oilwells-prov-[YOUR INIT]** IoT hub
 
-3.  Click **Diagnostic settings**
+3.  In the blade menu, scroll to the **Monitoring** section, then click **Diagnostic settings**
 
 4.  Click **Add diagnostic setting**
 
@@ -608,13 +645,13 @@ Duration: 15 minutes
 
 2.  Click the **oilwells-iothub-[YOUR INIT]** IoT hub
 
-3.  Click **Overview**, you will get a dashboard of potential security recommendations that very likey should be implemented.
+3.  In the blade menu, in the **Security** section, click **Overview**, you will get a dashboard of potential security recommendations that very likey should be implemented.
 
 4.  Click **Recommendations**, you should see our attack items displaying:
 
 5.  Click the **Open Ports On Device** recommendation.  In the dialog, click the **To see which devices have this recommendation...** link.  This will navigate to the Log Analytics portal when you can drill deeper into the log data that caused the alert.
 
-6.  Expand the log, 
+6.  Expand the log
 
 ### Task 4: Create Custom Security Alerts
 
@@ -622,9 +659,9 @@ Duration: 15 minutes
 
 2.  Click the **oilwells-iothub-[YOUR INIT]** IoT hub
 
-3.  Click **Custom Alerts**
+3.  In the blade menu, in the **Security** section, click **Custom Alerts**
 
-4.  Click **default**
+4.  Select the **default** security group
 
 5.  Click **Add a custom alert**
 
