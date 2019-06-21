@@ -178,10 +178,12 @@ Synopsis: With the Azure resources in place, you can now start creating and prov
 sudo apt-get update
 sudo apt-get upgrade
 
-sudo apt-get install -y git cmake build-essential curl libcurl4-openssl-dev libssl-dev uuid-dev
+sudo apt-get install -y git cmake libcurl4 build-essential curl libcurl4-openssl-dev libssl-dev uuid-dev
 
 sudo apt-get install libcurl3 libcurl-openssl1.0-dev
 sudo apt-get install auditd audispd-plugins
+
+reboot
 
 ```
 
@@ -197,10 +199,23 @@ git clone -b 2019-05-16 https://github.com/Azure/azure-iot-sdk-c.git --recursive
 cd azure-iot-sdk-c
 
 git submodule update --init
+```
 
-#cmake -Duse_prov_client:BOOL=ON .
-cmake -Duse_prov_client:BOOL=ON -Duse_tpm_simulator:BOOL=ON .
+If you are using a software based simulator, then run the following command:
 
+```PowerShell
+
+cmake -Duse_prov_client:BOOL=ON -Duse_tpm_simulator:BOOL=OFF .
+
+Otherwise with a hardware based TPM, run the following:
+
+```PowerShell
+cmake -Duse_prov_client:BOOL=ON -Duse_tpm_simulator:BOOL=OFF .
+```
+
+To get a new registration and endoresment key, run the following:
+
+```PowerShell
 cd provisioning_client/tools/tpm_device_provision
 
 make
@@ -214,13 +229,15 @@ make
 sudo ./tpm_device_provision
 ```
 
->NOTE:  This command will fail on a device that does not have a hardward or software TPM installed
+>NOTE:  This command will fail on a device that does not have a hardward or software TPM installed.
 
 ![This shows what happens with the device does not have a hardware or software TPM ](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex2_image003.png "Failed TPM command")
 
 ### Task 5: Install a software TPM and Resource Manager and reattempt Device Enrollment
 
-1.  Run the following commands to start a TPM server
+> NOTE:  If you have a hardware TPM, you can skip to step 3
+
+1.  Run the following commands to download, compile and start a software based TPM server
 
 ```PowerShell
 cd
@@ -262,8 +279,6 @@ cd local/bin
 
 ```
 
-![A running software TPM.](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex2_image005.png "A running software TPM")
-
 3.  With your software TPM running, attempt to provision again using the following commands:
 
 ```PowerShell
@@ -271,25 +286,29 @@ cd
 cd azure-iot-sdk-c/provisioning_client/tools/tpm_device_provision
 sudo ./tpm_device_provision
 ```
-2.  Copy the device **Registration Id** and the **Endorsement Key**
+
+![A running software TPM.](Images/Hands-onlabstep-bystep-securitytheiotendtoendimages/media/ex2_image005.png "A running software TPM")
+
+
+4.  Copy the device **Registration Id** and the **Endorsement Key**
 
 > NOTE: In the real world all your devices should have hardware based TPMs.
 
-3.  Switch to the Azure Portal and navigate to the Device Provisioning Service **oilwells-prov-[YOUR INIT]**
+5.  Switch to the Azure Portal and navigate to the Device Provisioning Service **oilwells-prov-[YOUR INIT]**
 
-4.  Under **Settings**, click **Manage enrollments**
+6.  Under **Settings**, click **Manage enrollments**
 
-5.  Click **Add Individual Enrollment**
+7.  Click **Add Individual Enrollment**
 
-6.  Enter your Registration Id and Endorsement Key, then click the **Enable** toggle for the IoT Edge Device setting
+8.  Enter your Registration Id and Endorsement Key, then click the **Enable** toggle for the IoT Edge Device setting
 
-7.  Click **Save**
+9.  Click **Save**
 
 ## Exercise 3: Install IoT Edge
 
-Duration: X minutes
+Duration: 15 minutes
 
-\[insert your custom Hands-on lab content here . . .\]
+In this exercise you will install the Azure IoT Edge agent on your IoT device and then register the new device with your IoT Hub.
 
 ### Task 1: Install IoT Edge
 
@@ -392,7 +411,7 @@ sudo docker ps
 
 ## Exercise 4: Install Azure Security IoT Agent
 
-Duration: X minutes
+Duration: 15 minutes
 
 \[insert your custom Hands-on lab content here . . .\]
 
@@ -512,7 +531,7 @@ mcr.microsoft.com/ascforiot/azureiotsecurity:0.0.3
 
 ## Exercise 5: Simulate IoT Attacks
 
-Duration: X minutes
+Duration: `5 minutes
 
 \[insert your custom Hands-on lab content here . . .\]
 
@@ -543,7 +562,7 @@ sudo ./trigger_events.sh --malicious
 
 ## Exercise 6: Configure Security and Alerts
 
-Duration: X minutes
+Duration: 15 minutes
 
 \[insert your custom Hands-on lab content here . . .\]
 
