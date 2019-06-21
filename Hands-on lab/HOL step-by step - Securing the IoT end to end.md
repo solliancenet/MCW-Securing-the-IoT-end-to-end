@@ -35,7 +35,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Before the hands-on lab](#before-the-hands-on-lab)
     - [Exercise 1: Configure IoT Services](#exercise-1-configure-iot-services)
         - [Task 1: Link Provision Service to IoT Hub](#task-1-link-device-provisioning-service-to-iot-hub)
-        - [Task 2: Enable Azure Security Center for IoT](#task-2-enable-azure-security-center-for-iot
+        - [Task 2: Enable Azure Security Center for IoT](#task-2-enable-azure-security-center-for-iot)
     - [Exercise 2: Enroll and Provision IoT Devices](#exercise-2-enroll-and-provision-iot-devices)
         - [Task 1: Configure your devcies](#task-1-configure-your-devices)
         - [Task 2: Update and Install Azure IoT SDK prerequisites](#task-2-update-and-install-azure-iot-sdk-prerequisites)
@@ -51,7 +51,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Exercise 5: Simulate IoT Attacks](#exercise-5-simulate-iot-attacks)
         - [Task 1: Setup and execute Attack Scripts](#task-1-setup-and-execute-attack-scripts)
     - [Exercise 6: Configure Security and Alerts](#exercise-6-configure-security-and-alerts)
-        - [Task 1: Configure Diagnostic Logging on IoT Hub](#task-2-configure-diagnostic-logging-on-iot-hub)
+        - [Task 1: Configure Diagnostic Logging on IoT Hub](#task-1-configure-diagnostic-logging-on-iot-hub)
         - [Task 2: Configure Diagnostic Logging on Device Provisioning Service](#task-2-configure-diagnostic-logging-on-device-provisioning-service)
         - [Task 3: Review Security Log Data](#task-3-review-security-log-data)
         - [Task 4: Create Custom Security Alerts](#task-4-create-custom-security-alerts)
