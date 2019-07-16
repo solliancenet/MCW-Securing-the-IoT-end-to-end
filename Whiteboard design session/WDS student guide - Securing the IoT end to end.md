@@ -49,6 +49,8 @@ In this whiteboard design session, you will work with a group to design an end-t
 
 At the end of this session, you will be better able to design and recommend solutions that help organizations properly secure and monitor their IoT-based infrastructure.
 
+This concepts covered here are targeted at an architectural design level versus simple stand alone actvities.
+
 ## Step 1: Review the customer case study 
 
 **Outcome**
@@ -96,6 +98,8 @@ They have implemented a proof of concept solution for collecting and analyzing d
 
 8.  Ensure that in the future it will be possible to have an enterprise-wide look at any vulnerabilities or malicious events, not just specifically focused the IoT infrastructure.
 
+9.  Contoso is currently using older generic IoT devices but is considering upgrading those devices to something more secure and modern that will support future AI and Machine Learning activities.  They would like to know if Microsoft has anything that can help them.
+
 ### Customer objections 
 
 1.  Contoso, Ltd staff are worried it may be impossible to manage the many thousands of IoT devices they have deployed around the world with any one product.
@@ -115,6 +119,8 @@ They have implemented a proof of concept solution for collecting and analyzing d
 8.  Is the solution capable of being flexible in the types of reporting and alerts that can be generated based on custom logging event data?
 
 9.  Will we be able to limit the messages and network traffic to specific network IP addresses/subnets for our devices?
+
+10.  Can Microsoft provide a more modern solution to support their IoT device upgrades?
 
 ### Infographic for common scenarios
 
@@ -241,8 +247,19 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | **Description** | **Links** |
 | Azure IoT Hub   | https://docs.microsoft.com/en-us/azure/iot-hub/  |
 | Azure IoT Edge   | https://docs.microsoft.com/en-us/azure/iot-edge/  |
-| Azure IoT Device Provisioning Service   | https://docs.microsoft.com/en-us/azure/iot-dps/  |
 | Azure IoT Edge Security Manager  |  https://docs.microsoft.com/en-us/azure/iot-edge/iot-edge-security-manager|
+| Azure IoT Edge Security Model  | <https://docs.microsoft.com/en-us/azure/iot-edge/iot-edge-security-manager/>     |
+| Azure IoT Edge Security Model (Video)  | <https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-IoT-Edge-Security-Model/>     |
+| Azure IoT Edge Security Model (Presentation)  | <https://github.com/solliancenet/MCW-Securing-the-IoT-end-to-end/files/3394626/AzureIoTEdge_Security.pptx/>     |
+| Azure IoT Edge As Gateway  |  <https://docs.microsoft.com/en-us/azure/iot-edge/iot-edge-as-gateway/>|
+| Azure IoT Edge (Transparent Gateway)  |  <https://docs.microsoft.com/en-us/azure/iot-edge/how-to-create-transparent-gateway/>|
+| Azure IoT Edge (Authenticate downstream device)  |  <https://docs.microsoft.com/en-us/azure/iot-edge/how-to-authenticate-downstream-device/>|
+| Azure IoT Edge (Connect downstream device)  |  <https://docs.microsoft.com/en-us/azure/iot-edge/how-to-connect-downstream-device/>|
+| Azure IoT Edge Certificates  |  <https://docs.microsoft.com/en-us/azure/iot-edge/iot-edge-certs/>|
+| Azure IoT Device Provisioning Service   | https://docs.microsoft.com/en-us/azure/iot-dps/  |
+| Provisioning devices with vTPM   | https://docs.microsoft.com/en-us/azure/iot-edge/how-to-auto-provision-simulated-device-linux/  |
+| Provisioning devices with sTPM   | https://docs.microsoft.com/en-us/azure/iot-edge/how-to-auto-provision-simulated-device-windows/  |
+| Provisioning devices with dTPM (Rasberry PI)   | https://catalog.azureiotsolutions.com/details?title=OPTIGA-TPM-SLB-9670-Iridium-Board&source=all-devices-page/  |
 | Azure Security Center for IoT  | https://docs.microsoft.com/en-us/azure/asc-for-iot/overview  |
 | Azure IoT SDK  | https://github.com/Azure/azure-iot-sdks  |
 | Azure IoT Security Agent  | https://github.com/Azure/Azure-IoT-Security-Agent-C  |
@@ -250,3 +267,5 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | Azure Policy   | <https://azure.microsoft.com/en-us/services/azure-policy/>   |
 | Compliance Commitments   |  <http://azure.microsoft.com/en-us/support/trust-center/services/>  |
 | Azure Trust Center  | <http://azure.microsoft.com/en-us/support/trust-center/>     |
+| Azure Sphere  | <https://docs.microsoft.com/en-us/azure-sphere/>     |
+| Security Best Practices for IoT  | <https://docs.microsoft.com/en-us/azure/iot-fundamentals/iot-security-best-practices>     |

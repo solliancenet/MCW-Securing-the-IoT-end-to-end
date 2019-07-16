@@ -173,7 +173,9 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 In this whiteboard design session, you will work with a group to design an end-to-end solution that leverages Microsoft Azure's IoT features, tools and resources to secure and monitor a set of IoT devices.
 
-At the end of this session, you will be better able to design and recommend solutions that help organizations properly secure and monitor their IoT-based infrastructure.
+At the end of this session, you will be better able to design and recommend solutions that help organizations properly secure and monitor their IoT-based infrastructure.  
+
+This concepts covered here are targeted at an architectural design level versus simple stand alone actvities.
 
 ## Step 1: Review the customer case study 
 
@@ -221,6 +223,8 @@ They have implemented a proof of concept solution for collecting and analyzing d
 
 8.  Ensure that in the future it will be possible to have an enterprise-wide look at any vulnerabilities or malicious events, not just specifically focused the IoT infrastructure.
 
+9.  Contoso is currently using older generic IoT devices but is considering upgrading those devices to something more secure and modern that will support future AI and Machine Learning activities.  They would like to know if Microsoft has anything that can help them.
+
 ### Customer objections 
 
 1.  Contoso, Ltd staff are worried it may be impossible to manage the many thousands of IoT devices they have deployed around the world with any one product.
@@ -241,6 +245,7 @@ They have implemented a proof of concept solution for collecting and analyzing d
 
 9.  Will we be able to limit the messages and network traffic to specific network IP addresses/subnets for our devices?
 
+10.  Can Microsoft provide a more modern solution to support their IoT device upgrades?
 
 ### Infographic for common scenarios
 
@@ -367,8 +372,19 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | **Description** | **Links** |
 | Azure IoT Hub   | https://docs.microsoft.com/en-us/azure/iot-hub/  |
 | Azure IoT Edge   | https://docs.microsoft.com/en-us/azure/iot-edge/  |
-| Azure IoT Device Provisioning Service   | https://docs.microsoft.com/en-us/azure/iot-dps/  |
 | Azure IoT Edge Security Manager  |  https://docs.microsoft.com/en-us/azure/iot-edge/iot-edge-security-manager|
+| Azure IoT Edge Security Model  | <https://docs.microsoft.com/en-us/azure/iot-edge/iot-edge-security-manager/>     |
+| Azure IoT Edge Security Model (Video)  | <https://channel9.msdn.com/Shows/Internet-of-Things-Show/Azure-IoT-Edge-Security-Model/>     |
+| Azure IoT Edge Security Model (Presentation)  | <https://github.com/solliancenet/MCW-Securing-the-IoT-end-to-end/files/3394626/AzureIoTEdge_Security.pptx/>     |
+| Azure IoT Edge As Gateway  |  <https://docs.microsoft.com/en-us/azure/iot-edge/iot-edge-as-gateway/>|
+| Azure IoT Edge (Transparent Gateway)  |  <https://docs.microsoft.com/en-us/azure/iot-edge/how-to-create-transparent-gateway/>|
+| Azure IoT Edge (Authenticate downstream device)  |  <https://docs.microsoft.com/en-us/azure/iot-edge/how-to-authenticate-downstream-device/>|
+| Azure IoT Edge (Connect downstream device)  |  <https://docs.microsoft.com/en-us/azure/iot-edge/how-to-connect-downstream-device/>|
+| Azure IoT Edge Certificates  |  <https://docs.microsoft.com/en-us/azure/iot-edge/iot-edge-certs/>|
+| Azure IoT Device Provisioning Service   | https://docs.microsoft.com/en-us/azure/iot-dps/  |
+| Provisioning devices with vTPM   | https://docs.microsoft.com/en-us/azure/iot-edge/how-to-auto-provision-simulated-device-linux/  |
+| Provisioning devices with sTPM   | https://docs.microsoft.com/en-us/azure/iot-edge/how-to-auto-provision-simulated-device-windows/  |
+| Provisioning devices with dTPM (Rasberry PI)   | https://catalog.azureiotsolutions.com/details?title=OPTIGA-TPM-SLB-9670-Iridium-Board&source=all-devices-page/  |
 | Azure Security Center for IoT  | https://docs.microsoft.com/en-us/azure/asc-for-iot/overview  |
 | Azure IoT SDK  | https://github.com/Azure/azure-iot-sdks  |
 | Azure IoT Security Agent  | https://github.com/Azure/Azure-IoT-Security-Agent-C  |
@@ -376,7 +392,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | Azure Policy   | <https://azure.microsoft.com/en-us/services/azure-policy/>   |
 | Compliance Commitments   |  <http://azure.microsoft.com/en-us/support/trust-center/services/>  |
 | Azure Trust Center  | <http://azure.microsoft.com/en-us/support/trust-center/>     |
-
+| Azure Sphere  | <https://docs.microsoft.com/en-us/azure-sphere/>     |
 
 # Security the IoT end to end whiteboard design session trainer guide
 
@@ -518,11 +534,18 @@ Describe how you will use Azure features to ensure the following:
 
 4.  Can Azure support non-TPM hardware devices?
 
--   Yes, you can recompile the source code to utilize simulated/software TPMs, however this is not a standard or accepted way of doing secure device management in production environments.
+-   Yes, you can recompile the source code to utilize simulated/software TPMs, however this is typically not a standard or accepted way of doing secure device management in production environments.
+
+-  You can reference the following resources:
+    -   [Using vTPM in Linux (virtual or vTPM is sit in for a real TPM)]( https://docs.microsoft.com/en-us/azure/iot-edge/how-to-auto-provision-simulated-device-linux)
+    -  [Using sTPM on Windows (software/simulated or sTPM is sit in for a recommended discrete/chip TPM)]( https://docs.microsoft.com/en-us/azure/iot-edge/how-to-auto-provision-simulated-device-windows)
+    -  [Use dTPM on Linux using Raspberry Pi]( https://catalog.azureiotsolutions.com/details?title=OPTIGA-TPM-SLB-9670-Iridium-Board&source=all-devices-page)
 
 5.  Will the communications from a device to Azure be secure enough?
 
--   Absoultely, the Azure IoT SDKs come with support for several different protocols including the latest HTTPS and SSL features.
+-   Absoultely, the Azure IoT SDKs come with support for several different protocols including the latest HTTPS and SSL features such as TLS and MTLS.  Devices can be authenticated using device specific certificates and the network can be whitelisted using IP schemes.
+
+-   Additionally, the [Azure IoT Security Model](https://aka.ms/iot-edge-security-manager) has been designed specifically to address security needs of any IoT Architecture plus adds the flexability to monitor for threats and motivations such as physical accessiblity of devices, IP and generated insights, actions based off insights and heterogenitiy in the silicon, languages and procedures.
 
 6.  Can an Azure logging solution handle the massive amount of events and alerts that will need to be ingested?
 
@@ -540,8 +563,15 @@ Describe how you will use Azure features to ensure the following:
  
  -   Yes, you can enable IP Filtering in the IoT Hub to ensure that only messages that originate from specific IPs or subnet are allowed to flow through to the IoT Hub(s).
 
+ 10.  Can Microsoft provide a more modern solution to support their IoT device upgrades?
+
+ -  Yes, using Azure Sphere, the customer can upgrade their devices using new hardware designed with security and flexability in mind. 
+ -  Reference [this Microsoft research paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/03/SevenPropertiesofHighlySecureDevices.pdf) for details of what makes devices secure
+
 ## Customer quote (to be read back to the attendees at the end)
 
-"Managing our massive worldwide IoT Infrastructure using the latest security features of Azure has given us the confidence to know our devices are running securly and efficiently with the added flexibility to change our direction at any time." 
+"Managing our massive worldwide IoT Infrastructure using the latest security features of Azure has given us the confidence to know our devices are running securely and efficiently with the added flexibility to change our direction at any time.  
+
+Azure Sphere presents us with a path to support our future needs." 
 
 Jack Tradewinds, CIO of Contoso, Ltd.

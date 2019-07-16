@@ -315,6 +315,8 @@ sudo ./tpm_device_provision
 
 > NOTE:  If you have a hardware TPM in your device, you can skip to step 3
 
+>NOTE: Devices such as a Rasberry PI do not come with a TPM chip.  You can however add a TPM chip to these devices such as [this Iridium Board](https://catalog.azureiotsolutions.com/details?title=OPTIGA-TPM-SLB-9670-Iridium-Board&source=all-devices-page/).
+
 1.  Run the following commands to download, compile and start a software based TPM server
 
 ```PowerShell
